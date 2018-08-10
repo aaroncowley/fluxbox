@@ -1,0 +1,118 @@
+# click on the desktop to get menus
+OnDesktop Mouse1 :HideMenus
+OnDesktop Mouse2 :WorkspaceMenu
+OnDesktop Mouse3 :RootMenu
+
+# scroll on the desktop to change workspaces
+Mod4 j :PrevWorkspace
+Mod4 k :NextWorkspace
+
+# scroll on the toolbar to change current window
+OnToolbar Mouse4 :PrevWindow {static groups} (iconhidden=no)
+OnToolbar Mouse5 :NextWindow {static groups} (iconhidden=no)
+
+# alt + left/right click to move/resize a window
+OnWindow Mod1 Mouse1 :MacroCmd {Raise} {Focus} {StartMoving}
+OnWindowBorder Move1 :StartMoving
+
+OnWindow Mod1 Mouse3 :MacroCmd {Raise} {Focus} {StartResizing NearestCorner}
+OnLeftGrip Move1 :StartResizing bottomleft
+OnRightGrip Move1 :StartResizing bottomright
+
+# alt + middle click to lower the window
+OnWindow Mod1 Mouse2 :Lower
+
+# control-click a window's titlebar and drag to attach windows
+OnTitlebar Control Mouse1 :StartTabbing
+
+# double click on the titlebar to shade
+OnTitlebar Double Mouse1 :Maximize
+
+# left click on the titlebar to move the window
+OnTitlebar Mouse1 :MacroCmd {Raise} {Focus} {ActivateTab}
+OnTitlebar Move1  :StartMoving
+
+# middle click on the titlebar to lower
+OnTitlebar Mouse2 :Lower
+
+# right click on the titlebar for a menu of options
+OnTitlebar Mouse3 :WindowMenu
+
+# alt-tab
+Mod1 Tab :NextWindow {groups} (workspace=[current])
+Mod1 Shift Tab :PrevWindow {groups} (workspace=[current])
+
+# cycle through tabs in the current window
+Mod4 Tab :NextTab
+Mod4 Shift Tab :PrevTab
+
+# open a terminal
+Mod4 Return :Exec urxvt
+
+#open emacs
+Mod4 e :Exec emacs
+
+#dmenu
+Mod4 d :Exec dmenu_run -b -nf '#444444' -nb '#1b1918' -sb '#407ee7'
+
+#screenshots
+Mod4 Shift s :Exec scrot -e 'mv $f ~/Pictures/screenshots/'
+Mod4 Shift w :Exec scrot -u -e 'mv $f ~/Pictures/screenshots/'
+
+# volume settings, using common keycodes
+# if these don't work, use xev to find out your real keycodes
+176 :Exec amixer sset Master,0 1+
+174 :Exec amixer sset Master,0 1-
+160 :Exec amixer sset Master,0 toggle
+
+# current window commands
+Mod4 Shift q :Close
+Mod4 F5 :Kill
+Mod4 Down :Minimize
+Mod4 Up :Maximize
+Mod4 f :Fullscreen
+
+# open the window menu
+Mod1 space :WindowMenu
+
+# exit fluxbox
+Control Mod1 Delete :Exit
+
+# restart fluxbox
+Mod4 Shift r :Restart
+
+# send the current window to previous/next workspace
+Mod4 Left :SendToPrevWorkspace
+Mod4 Right :SendToNextWorkspace
+
+# send the current window and follow it to previous/next workspace
+Control Mod4 Left :TakeToPrevWorkspace
+Control Mod4 Right :TakeToNextWorkspace
+
+# change to a specific workspace
+Mod4 1 :Workspace 1
+Mod4 2 :Workspace 2
+Mod4 3 :Workspace 3
+Mod4 4 :Workspace 4
+
+# send the current window to a specific workspace
+Mod4 Shift 1 :SendToWorkspace 1
+Mod4 Shift 2 :SendToWorkspace 2
+Mod4 Shift 3 :SendToWorkspace 3
+Mod4 Shift 4 :SendToWorkspace 4
+
+
+# send the current window and change to a specific workspace
+Control Mod4 Shift 1 :TakeToWorkspace 1
+Control Mod4 Shift 2 :TakeToWorkspace 2
+Control Mod4 Shift 3 :TakeToWorkspace 3
+Control Mod4 Shift 4 :TakeToWorkspace 4
+
+
+#tiling shortcuts
+
+Control Mod1 Left :MacroCmd {ResizeTo 50% 100%} {MoveTo 00 00 Left}
+Control Mod1 Right :MacroCmd {ResizeTo 50% 100%} {MoveTo 00 00 Right}
+Control Mod1 Up :MacroCmd {ResizeTo 100% 50%} {MoveTo 00 00 Up}
+Control Mod1 Down :MacroCmd {ResizeTo 100% 50%} {MoveTo 00 00 Bottom}
+Control Mod1 Return :ToggleCmd {Maximize} {Restore}
